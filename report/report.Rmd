@@ -1,0 +1,50 @@
+---
+title: "Report fish"
+output:
+  pdf_document: default
+  html_document: default
+date: "18 February 2019"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+data <- read.csv("data/fish_lw.csv")
+data <- data[!is.na(data$weight),]
+```
+
+## Introduction
+Here, we analyze the relationship between length and weight of fish in French Polynesia.
+bla bla
+bla bla
+
+## Methods
+We killed a lot of fish by using spearguns. We then measured and weighed them.   
+
+## Results
+
+```{r}
+# linear regression
+lm <- lm(log(weight) ~ log(tl), data = data)
+intercept <- lm$coefficients[[1]]
+slope <- lm$coefficients[[2]]
+lm_summary <- summary(lm)
+table <- lm_summary$coefficients[,1:2]
+rownames(table) <- c("intercept", "slope")
+colnames(table) <- c("mean", "se")
+knitr::kable(table)
+```
+
+
+
+```{r plot}
+library(ggplot2)
+plot <- 
+ggplot(data)+
+  geom_point(aes(log(tl), log(weight)))+
+  geom_abline(slope = slope, intercept = intercept)+
+  theme_bw()
+plot
+```
+
+
+
