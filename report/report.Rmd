@@ -1,8 +1,10 @@
 ---
 title: "Report fish"
+bibliography: citations.bib  
 output:
   pdf_document: default
   html_document: default
+fig_caption: TRUE
 date: "18 February 2019"
 ---
 
@@ -13,6 +15,7 @@ data <- data[!is.na(data$weight),]
 ```
 
 ## Introduction
+Fish are great [@Schiettekatte2019].
 Here, we analyze the relationship between length and weight of fish in French Polynesia.
 bla bla
 bla bla
@@ -36,7 +39,7 @@ knitr::kable(table)
 
 
 
-```{r plot}
+```{r plot, ,fig.cap="Length-weight relationship"}
 library(ggplot2)
 plot <- 
 ggplot(data)+
@@ -46,5 +49,6 @@ ggplot(data)+
 plot
 ```
 
-
+\newpage
+## References
 
