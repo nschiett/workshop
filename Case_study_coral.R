@@ -55,8 +55,8 @@ summary(stanfit_por)$summary
 
 # diagnostics
 color_scheme_set("blue")
-mcmc_hist(as.matrix(stanfit, pars = c("a", "sigma")))
-traceplot(stanfit, pars = c("a", "b", "sigma"))
+mcmc_hist(as.matrix(stanfit_por, pars = c("a", "sigma")))
+traceplot(stanfit_por, pars = c("a", "b", "sigma"))
 
 # Posterior prediction check
 yrep <- rstan::extract(stanfit_por)$yrep
@@ -119,10 +119,11 @@ ggplot(data = coral)+
 ggsave("plots/montipora_flow_all.png")
 
 #### brms ####
-brms <- brms::brm(log(Calcif_kg_m2_yr)~log(Surface_Area), data = mont)
+brms <- brms::brm(log(Calcif_kg_m2_yr)~log(Surface_Area)|Flow + log(Surface_Area)|Sp , data = mont)
 summary(brms)
 
 brms::stancode(brms)
+brms::standata(brms)
 
 predict(brms)[,1]
 ggplot()+
