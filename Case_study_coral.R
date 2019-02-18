@@ -55,15 +55,15 @@ summary(stanfit_por)$summary
 
 # diagnostics
 color_scheme_set("blue")
-mcmc_hist(as.matrix(stanfit, pars = c("mu", "sigma")))
-traceplot(stanfit, pars = c("mu", "sigma"))
+mcmc_hist(as.matrix(stanfit, pars = c("a", "sigma")))
+traceplot(stanfit, pars = c("a", "b", "sigma"))
 
 # Posterior prediction check
 yrep <- rstan::extract(stanfit_por)$yrep
 
 ggplot()+
   geom_density(aes((yrep)), fill = "red", alpha = 0.3 , color = "red", stat = "density") +
-  geom_density(aes((log(porites_high$Calcif_kg_m2_yr))), fill = "blue", color = "blue", alpha = 0.3) +
+  geom_density(aes((log(mont$Calcif_kg_m2_yr))), fill = "blue", color = "blue", alpha = 0.3) +
   theme_bw()
 
 apply(yrep,2,mean)
@@ -79,7 +79,7 @@ ggplot()+
 ggsave("plots/montipora_flow.png")
 
 
-#####" regression all with flow ####
+##### regression all with flow ####
 data_coral <- list(
   N = nrow(coral),
   x = log(coral$Surface_Area),
