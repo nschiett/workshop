@@ -119,7 +119,7 @@ ggplot(data = coral)+
 ggsave("plots/montipora_flow_all.png")
 
 #### brms ####
-brms <- brms::brm(log(Calcif_kg_m2_yr)~log(Surface_Area)|Flow + log(Surface_Area)|Sp , data = mont)
+brms <- brms::brm(log(Calcif_kg_m2_yr)~log(Surface_Area)|Flow, data = mont)
 summary(brms)
 
 brms::stancode(brms)
